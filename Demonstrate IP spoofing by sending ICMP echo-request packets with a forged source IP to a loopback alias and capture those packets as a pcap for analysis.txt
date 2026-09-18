@@ -1,0 +1,14 @@
+ sudo ip addr add 127.0.0.2/8 dev lo
+ip addr show lo
+nano exp6.py
+#beg of python code
+from scapy.all import IP,ICMP,send
+pa=IP(src="127.0.0.99",dst="127.0.0.2")/ICMP()
+send(pa,verbose=True)
+#end of python code
+sudo python3 exp.py
+//terminal 1
+sudo tcpdump -i lo -n -w exp6.pcap
+//terminal 2
+sudo python3 exp.py
+sudo tcpdump -r exp6.pcap -n icmp
