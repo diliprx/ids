@@ -1,0 +1,26 @@
+# 1. Check interface
+ip addr show lo
+
+# 2. Check Snort
+snort -V
+
+# 3. Create rule
+sudo nano /etc/snort/rules/local.rules
+
+# 4. Test Snort configuration
+sudo snort -T -c /etc/snort/snort.conf
+
+# 5. Capture packets
+sudo tcpdump -i lo -n -w experiment5.pcap
+
+# 6. Generate traffic
+ping -c 10 127.0.0.1
+
+# 7. Read PCAP
+tcpdump -r experiment5.pcap -n icmp
+
+# 8. Start Snort IDS
+sudo snort -q -A console -c /etc/snort/snort.conf -i lo
+
+# 9. Generate traffic again
+ping -c 5 127.0.0.1
